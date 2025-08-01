@@ -3,6 +3,29 @@ import { BookOpen, ExternalLink, Calendar } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { usePlusCounter } from '../hooks/useCounterAnimation';
 
+// Schema markup for publications
+const createPublicationSchema = (publications: any[]) => ({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "İlhan Karabıçak",
+  "jobTitle": "Doçent Doktor",
+  "hasCredential": publications.map(pub => ({
+    "@type": "ScholarlyArticle",
+    "name": pub.title,
+    "author": {
+      "@type": "Person",
+      "name": "İlhan Karabıçak"
+    },
+    "datePublished": pub.year,
+    "publisher": {
+      "@type": "Organization",
+      "name": pub.journal
+    },
+    "about": pub.category,
+    "url": pub.link || "#"
+  }))
+});
+
 const Publications: React.FC = () => {
   const [pubRef, pubVisible] = useScrollAnimation();
 

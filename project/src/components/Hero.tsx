@@ -47,6 +47,14 @@ const Hero: React.FC<HeroProps> = ({ onAppointmentClick, onContactClick }) => {
                   <span className="text-gray-700">Karabıçak.</span>
                 </h1>
 
+                <h2 className="text-xl lg:text-2xl font-semibold text-blue-700 mb-2">
+                  Samsun Genel Cerrahi Uzmanı
+                </h2>
+
+                <h3 className="text-lg text-emerald-600 font-medium mb-4">
+                  Karaciğer Nakli • Pankreas Cerrahisi • Safra Kesesi Ameliyatı
+                </h3>
+
                 <div className="space-y-4 text-lg lg:text-xl text-gray-600 leading-relaxed">
                   <p>
                     Genel cerrahi alanında, <span className="font-semibold text-blue-700">15 yılı aşkın süredir</span> 

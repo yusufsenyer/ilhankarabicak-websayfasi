@@ -3,6 +3,65 @@ import { Award, BookOpen, Heart, Users } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { usePlusCounter, usePercentageCounter } from '../hooks/useCounterAnimation';
 
+// Schema markup for doctor
+const doctorSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "İlhan Karabıçak",
+  "jobTitle": "Doçent Doktor - Genel Cerrahi Uzmanı",
+  "description": "15+ yıl deneyimli genel cerrahi uzmanı. Mount Sinai Hospital ve NYU'da eğitim almış. Karaciğer nakli, pankreas cerrahisi konularında uzman.",
+  "url": "https://ilhankarabicak.com",
+  "image": "/doctor-photo.jpg",
+  "telephone": "+90 362 XXX XX XX",
+  "email": "info@ilhankarabicak.com",
+  "worksFor": {
+    "@type": "MedicalOrganization",
+    "name": "VM Medicalpark Samsun Hastanesi",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Mimarsinan, Alparslan Blv. No:17",
+      "addressLocality": "Atakum",
+      "addressRegion": "Samsun",
+      "postalCode": "55200",
+      "addressCountry": "TR"
+    }
+  },
+  "alumniOf": [
+    {
+      "@type": "EducationalOrganization",
+      "name": "İstanbul Üniversitesi Tıp Fakültesi"
+    },
+    {
+      "@type": "EducationalOrganization",
+      "name": "Mount Sinai Hospital"
+    },
+    {
+      "@type": "EducationalOrganization",
+      "name": "New York University"
+    }
+  ],
+  "knowsAbout": [
+    "Genel Cerrahi",
+    "Karaciğer Nakli",
+    "Pankreas Cerrahisi",
+    "Safra Kesesi Ameliyatı",
+    "Fıtık Ameliyatı",
+    "Bariatrik Cerrahi"
+  ],
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Doçentlik",
+      "credentialCategory": "Academic Title"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Genel Cerrahi Uzmanlığı",
+      "credentialCategory": "Medical Specialty"
+    }
+  ]
+};
+
 const About: React.FC = () => {
   const [aboutRef, aboutVisible] = useScrollAnimation();
 
@@ -13,7 +72,14 @@ const About: React.FC = () => {
   const [statsRef, statsVisible] = useScrollAnimation();
 
   return (
-    <section className="py-20 bg-white" id="about">
+    <>
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(doctorSchema) }}
+      />
+
+      <section className="py-20 bg-white" id="about">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
@@ -24,7 +90,7 @@ const About: React.FC = () => {
             }`}
           >
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
-              <span className="text-blue-600">Hakkımda</span> - Doktorun Hikayesi
+              <span className="text-blue-600">Samsun'da Deneyimli</span> Genel Cerrahi Uzmanı
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-full mx-auto"></div>
           </div>
@@ -160,6 +226,7 @@ const About: React.FC = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

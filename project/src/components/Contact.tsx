@@ -13,6 +13,42 @@ import {
 import { sendContactEmail } from '../services/emailService';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
+// Local Business Schema Markup
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  "name": "Doç. Dr. İlhan Karabıçak - Genel Cerrahi Uzmanı",
+  "description": "Samsun'da genel cerrahi uzmanı. Karaciğer nakli, pankreas cerrahisi, safra kesesi ameliyatı konularında deneyimli doktor.",
+  "url": "https://ilhankarabicak.com",
+  "telephone": "+90 362 XXX XX XX",
+  "email": "info@ilhankarabicak.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Mimarsinan, Alparslan Blv. No:17",
+    "addressLocality": "Atakum",
+    "addressRegion": "Samsun",
+    "postalCode": "55200",
+    "addressCountry": "TR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "41.2867",
+    "longitude": "36.3300"
+  },
+  "openingHours": ["Mo-Fr 09:00-17:00"],
+  "areaServed": [
+    { "@type": "City", "name": "Samsun" },
+    { "@type": "City", "name": "Atakum" },
+    { "@type": "City", "name": "İlkadım" },
+    { "@type": "City", "name": "Canik" },
+    { "@type": "City", "name": "Tekkeköy" }
+  ],
+  "medicalSpecialty": [
+    "General Surgery", "Liver Transplantation", "Pancreatic Surgery",
+    "Gallbladder Surgery", "Hernia Surgery", "Bariatric Surgery"
+  ]
+};
+
 const Contact: React.FC = () => {
   const [headerRef, headerVisible] = useScrollAnimation();
   const [contactRef, contactVisible] = useScrollAnimation();
@@ -106,7 +142,14 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-blue-50 to-white" id="contact">
+    <>
+      {/* Local Business Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-white" id="contact">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
@@ -363,6 +406,7 @@ const Contact: React.FC = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
