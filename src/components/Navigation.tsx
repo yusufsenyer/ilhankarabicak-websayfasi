@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Calendar } from 'lucide-react';
 
-interface NavigationProps {
-  onAppointmentClick: () => void;
-}
-
-const Navigation: React.FC<NavigationProps> = ({ onAppointmentClick }) => {
+const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -40,17 +36,15 @@ const Navigation: React.FC<NavigationProps> = ({ onAppointmentClick }) => {
   const navigationLinks = [
     { label: 'Ana Sayfa', action: scrollToTop },
     { label: 'Hakkımda', action: () => scrollToSection('about') },
-    { label: 'Özgeçmiş', action: () => scrollToSection('cv') },
-    { label: 'Yayınlar', action: () => scrollToSection('publications') },
-    { label: 'Uluslararası Deneyim', action: () => scrollToSection('international-experience') },
     { label: 'Uzmanlıklar', action: () => scrollToSection('specialties') },
+    { label: 'Hasta Yorumları', action: () => scrollToSection('testimonials') },
     { label: 'İletişim', action: () => scrollToSection('contact') }
   ];
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled
-        ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200'
+      isScrolled 
+        ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200' 
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-6 lg:px-8">
@@ -65,12 +59,12 @@ const Navigation: React.FC<NavigationProps> = ({ onAppointmentClick }) => {
             </div>
             <div className="hidden sm:block">
               <div className={`font-bold text-lg transition-colors duration-300 ${
-                isScrolled ? 'text-gray-800' : 'text-gray-800'
+                isScrolled ? 'text-gray-800' : 'text-white'
               }`}>
                 Doç. Dr. İlhan Karabıçak
               </div>
               <div className={`text-sm transition-colors duration-300 ${
-                isScrolled ? 'text-gray-600' : 'text-gray-600'
+                isScrolled ? 'text-blue-600' : 'text-blue-200'
               }`}>
                 Genel Cerrahi Uzmanı
               </div>
@@ -83,7 +77,11 @@ const Navigation: React.FC<NavigationProps> = ({ onAppointmentClick }) => {
               <button
                 key={index}
                 onClick={link.action}
-                className="text-sm font-medium text-gray-800 hover:text-blue-600 transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
+                className={`text-sm font-medium transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:text-blue-600' 
+                    : 'text-white hover:text-blue-200'
+                }`}
               >
                 {link.label}
               </button>
@@ -92,12 +90,18 @@ const Navigation: React.FC<NavigationProps> = ({ onAppointmentClick }) => {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
-            <button
-              onClick={onAppointmentClick}
-              className="bg-blue-600 text-white px-6 py-2 rounded-xl font-medium text-sm hover:bg-blue-700 hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex items-center gap-2"
-            >
+            <button className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 ${
+              isScrolled
+                ? 'text-blue-600 hover:bg-blue-50'
+                : 'text-white hover:bg-white/10'
+            }`}>
+              <Phone className="w-4 h-4" />
+              <span className="hidden xl:inline">Ara</span>
+            </button>
+            
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-xl font-medium text-sm hover:bg-blue-700 hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 flex items-center gap-2">
               <Calendar className="w-4 h-4" />
-              Konsültasyon
+              Randevu
             </button>
           </div>
 
@@ -125,19 +129,29 @@ const Navigation: React.FC<NavigationProps> = ({ onAppointmentClick }) => {
               <button
                 key={index}
                 onClick={link.action}
-                className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-blue-600 transition-all duration-300 rounded-lg"
+                className={`block w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 rounded-lg ${
+                  isScrolled 
+                    ? 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' 
+                    : 'text-white hover:bg-white/10'
+                }`}
               >
                 {link.label}
               </button>
             ))}
             
             <div className="flex gap-2 px-4 pt-4">
-              <button
-                onClick={onAppointmentClick}
-                className="w-full bg-blue-600 text-white flex items-center justify-center gap-2 py-3 rounded-xl font-medium text-sm hover:bg-blue-700 transition-all duration-300"
-              >
+              <button className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-medium text-sm transition-all duration-300 ${
+                isScrolled
+                  ? 'text-blue-600 bg-blue-50 hover:bg-blue-100'
+                  : 'text-white bg-white/10 hover:bg-white/20'
+              }`}>
+                <Phone className="w-4 h-4" />
+                Ara
+              </button>
+              
+              <button className="flex-1 bg-blue-600 text-white flex items-center justify-center gap-2 py-3 rounded-xl font-medium text-sm hover:bg-blue-700 transition-all duration-300">
                 <Calendar className="w-4 h-4" />
-                Konsültasyon
+                Randevu
               </button>
             </div>
           </div>

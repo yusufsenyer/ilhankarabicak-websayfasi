@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import {
-  MapPin,
-  Phone,
-  MessageCircle,
-  Mail,
-  Clock,
+import { 
+  MapPin, 
+  Phone, 
+  MessageCircle, 
+  Mail, 
+  Clock, 
   Calendar,
-  ExternalLink,
-  CheckCircle,
-  AlertCircle
+  ExternalLink
 } from 'lucide-react';
-import { sendContactEmail } from '../services/emailService';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Contact: React.FC = () => {
@@ -19,12 +16,8 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    email: '',
     message: ''
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -34,63 +27,33 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
-    try {
-      const success = await sendContactEmail({
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-        message: formData.message
-      });
-
-      if (success) {
-        setSubmitStatus('success');
-        // Reset form after successful submission
-        setTimeout(() => {
-          setFormData({ name: '', phone: '', email: '', message: '' });
-          setSubmitStatus('idle');
-        }, 3000);
-      } else {
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      console.error('Email gönderme hatası:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleMapClick = () => {
-    window.open('https://www.google.com/maps/place/VM+Medical+Park+Samsun+Hastanesi/@41.3334995,36.2693414,17z/data=!3m1!4b1!4m6!3m5!1s0x4088790160da9ec9:0x746ff584f05eda61!8m2!3d41.3334955!4d36.2719163!16s%2Fg%2F11c5_r51m_?entry=ttu&g_ep=EgoyMDI1MDcyOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+    // Form submission logic would go here
+    console.log('Form submitted:', formData);
   };
 
   const contactMethods = [
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: "VM Medicalpark Samsun Hastanesi",
-      info: "Mimarsinan, Alparslan Blv. No:17",
-      detail: "55200 Atakum/Samsun",
+      title: "Medical Park Samsun Hastanesi",
+      info: "Kılıçdede Mah. Liman Cad. No:1",
+      detail: "İlkadım/Samsun",
       color: "blue",
-      action: "Haritada Görüntüle",
-      onClick: handleMapClick
+      action: "Haritada Görüntüle"
     },
     {
       icon: <Phone className="w-6 h-6" />,
-      title: "Hastane Randevu Hattı",
-      info: "(0362) 311 40 40",
+      title: "Randevu Hattı",
+      info: "+90 362 444 55 66",
       detail: "7/24 Erişilebilir",
       color: "emerald",
       action: "Hemen Ara"
     },
     {
       icon: <MessageCircle className="w-6 h-6" />,
-      title: "Doktor İletişim",
-      info: "+90 533 241 68 95",
+      title: "WhatsApp İletişim",
+      info: "+90 555 123 45 67",
       detail: "Hızlı Yanıt",
       color: "green",
       action: "WhatsApp'ta Yaz"
@@ -139,9 +102,8 @@ const Contact: React.FC = () => {
               </h3>
 
               {contactMethods.map((method, index) => (
-                <div
+                <div 
                   key={index}
-                  onClick={method.onClick}
                   className={`group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 cursor-pointer`}
                 >
                   <div className="flex items-start gap-4">
@@ -223,7 +185,6 @@ const Contact: React.FC = () => {
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 outline-none"
                       placeholder="Adınızı ve soyadınızı giriniz"
                       required
-                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -240,24 +201,6 @@ const Contact: React.FC = () => {
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 outline-none"
                       placeholder="+90 5xx xxx xx xx"
                       required
-                      disabled={isSubmitting}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Mail Adresiniz
-                      <span className="text-gray-400 text-xs ml-1">(Zorunlu Değildir)</span>
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 outline-none"
-                      placeholder="ornek@email.com"
-                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -274,58 +217,18 @@ const Contact: React.FC = () => {
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 outline-none resize-none"
                       placeholder="Durumunuz hakkında kısaca bilgi veriniz..."
                       required
-                      disabled={isSubmitting}
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className={`group w-full py-4 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-3 ${
-                      submitStatus === 'success'
-                        ? 'bg-green-600 hover:bg-green-700'
-                        : submitStatus === 'error'
-                        ? 'bg-red-600 hover:bg-red-700'
-                        : 'bg-blue-600 hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 active:scale-95'
-                    } ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''} text-white`}
+                    className="group w-full bg-blue-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        Gönderiliyor...
-                      </>
-                    ) : submitStatus === 'success' ? (
-                      <>
-                        <CheckCircle className="w-5 h-5" />
-                        Başarıyla Gönderildi!
-                      </>
-                    ) : submitStatus === 'error' ? (
-                      <>
-                        <AlertCircle className="w-5 h-5" />
-                        Tekrar Deneyin
-                      </>
-                    ) : (
-                      <>
-                        <Calendar className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" />
-                        Mesaj Gönder
-                      </>
-                    )}
+                    <Calendar className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" />
+                    Mesaj Gönder
                     <div className="absolute inset-0 rounded-xl bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                   </button>
                 </form>
-
-                {/* Status Messages */}
-                {submitStatus === 'success' && (
-                  <div className="mt-4 text-center text-green-600 text-sm font-medium">
-                    Mesajınız başarıyla gönderildi. 24 saat içinde size dönüş yapılacaktır.
-                  </div>
-                )}
-
-                {submitStatus === 'error' && (
-                  <div className="mt-4 text-center text-red-600 text-sm font-medium">
-                    Bir hata oluştu. Lütfen tekrar deneyin veya doğrudan telefon ile iletişime geçin.
-                  </div>
-                )}
 
                 <div className="mt-6 text-center">
                   <p className="text-sm text-gray-500">
@@ -342,16 +245,13 @@ const Contact: React.FC = () => {
               <div className="h-80 bg-gray-200 flex items-center justify-center relative">
                 <div className="text-center text-gray-600">
                   <MapPin className="w-12 h-12 mx-auto mb-4" />
-                  <p className="text-lg font-medium">VM Medicalpark Samsun Hastanesi</p>
-                  <p className="text-sm">Mimarsinan, Alparslan Blv. No:17, 55200 Atakum/Samsun</p>
-                  <button
-                    onClick={handleMapClick}
-                    className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-                  >
+                  <p className="text-lg font-medium">Medical Park Samsun Hastanesi</p>
+                  <p className="text-sm">Kılıçdede Mah. Liman Cad. No:1, İlkadım/Samsun</p>
+                  <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300">
                     Google Maps'te Aç
                   </button>
                 </div>
-
+                
                 {/* Custom Marker */}
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                   <div className="w-6 h-6 bg-red-600 rounded-full animate-pulse"></div>
