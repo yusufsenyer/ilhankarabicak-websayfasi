@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1235 650">
+  <rect width="1235" height="650" fill="#fff"/>
+  <g fill="#b22234">
+    <rect width="1235" height="50"/>
+    <rect y="100" width="1235" height="50"/>
+    <rect y="200" width="1235" height="50"/>
+    <rect y="300" width="1235" height="50"/>
+    <rect y="400" width="1235" height="50"/>
+    <rect y="500" width="1235" height="50"/>
+    <rect y="600" width="1235" height="50"/>
+  </g>
+  <rect width="494" height="350" fill="#3c3b6e"/>
+  <g fill="#fff">
+    <g id="s18">
+      <g id="s9">
+        <g id="s5">
+          <g id="s4">
+            <path id="s" d="m247,90 317.534230,190.945603 -317.534230,190.945603 z"/>
+            <use href="#s" y="420"/>
+            <use href="#s" y="840"/>
+            <use href="#s" y="1260"/>
+          </g>
+          <use href="#s" y="1680"/>
+        </g>
+        <use href="#s4" x="247" y="210"/>
+      </g>
+      <use href="#s9" x="494"/>
+    </g>
+  </g>
+</svg>
