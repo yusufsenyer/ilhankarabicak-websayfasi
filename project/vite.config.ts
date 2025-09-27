@@ -6,9 +6,9 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   base: '/ilhankarabicak-websayfasi/',
-  root: '.', // workflow cd project yaptığından burada kök project/
+  root: '.', // index.html ana dizinde
   build: {
-    outDir: 'dist', // dist project klasöründe kalacak
+    outDir: 'dist', // build sonucu kökte dist/ klasöründe
     assetsDir: 'assets',
     sourcemap: false,
     minify: true,

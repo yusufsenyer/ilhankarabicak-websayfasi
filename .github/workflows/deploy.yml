@@ -17,41 +17,40 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: 'project/package-lock.json'
-          
+          cache-dependency-path: 'project/package-lock.json' # project klasörü içinde npm
+
       - name: Install dependencies
-        run: |
-          cd project
-          npm ci
-          
-      - name: Build
-        run: |
-          cd project
-          npm run build
-          
+        run: npm ci
+        working-directory: ./project
+
+      - name: Build project
+        run: npm run build
+        working-directory: ./project
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'project/dist'
-          
+          path: './dist' # dist kökte oluşacak
+
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
