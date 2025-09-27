@@ -1,28 +1,16 @@
+// vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/ilhankarabicak-websayfasi/',
   root: '.', // index.html ana dizinde
   build: {
-    outDir: 'dist', // build sonucu kökte dist/ klasöründe
-    assetsDir: 'assets',
-    sourcemap: false,
-    minify: true,
     rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          icons: ['lucide-react']
-        }
-      }
+      input: path.resolve(__dirname, 'index.html'), // entry’i direkt veriyoruz
+      outDir: 'dist',
+      assetsDir: 'assets'
     }
-  },
-  server: {
-    port: 3000,
-    open: true
   }
 })
