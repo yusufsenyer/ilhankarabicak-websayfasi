@@ -2,12 +2,13 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   base: '/ilhankarabicak-websayfasi/',
-  root: path.resolve(__dirname, 'project'), // <- burayı değiştirdik
+  root: '.', // workflow cd project yaptığından burada kök project/
   build: {
-    outDir: path.resolve(__dirname, 'dist'),
+    outDir: path.resolve(__dirname, '../dist'), // dist repo köküne çıkacak
     assetsDir: 'assets',
     sourcemap: false,
     minify: true,
