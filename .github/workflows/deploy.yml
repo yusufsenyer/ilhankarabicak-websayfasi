@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: './project/package-lock.json'
+          cache-dependency-path: 'project/package-lock.json'
           
       - name: Install dependencies
         run: |
@@ -44,7 +44,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './project/dist'
+          path: 'project/dist'
           
   deploy:
     environment:

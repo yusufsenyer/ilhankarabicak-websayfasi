@@ -8,7 +8,7 @@ export default defineConfig({
   base: '/ilhankarabicak-websayfasi/',
   root: '.', // workflow cd project yaptığından burada kök project/
   build: {
-    outDir: path.resolve(__dirname, '../dist'), // dist repo köküne çıkacak
+    outDir: 'dist', // dist project klasöründe kalacak
     assetsDir: 'assets',
     sourcemap: false,
     minify: true,
